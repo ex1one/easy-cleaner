@@ -4,7 +4,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { TRPCProvider } from "./utils/trpc";
 
 import { HomeScreen } from "./screens/home";
-import { SignInSignUpScreen } from "./screens/signin";
+import { Main } from "./screens/Main";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 import { tokenCache } from "./utils/cache";
 import Constants from "expo-constants";
@@ -24,7 +24,7 @@ export const App = () => {
         </TRPCProvider>
       </SignedIn>
       <SignedOut>
-        <SignInSignUpScreen />
+        <Main />
       </SignedOut>
     </ClerkProvider>
   );
