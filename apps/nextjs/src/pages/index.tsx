@@ -4,9 +4,22 @@ import { Popup } from "../components/Popup";
 import { Layout } from "../features/Layout";
 import { Icon } from "../ui";
 
+import s from "./index.module.css";
+import { useRippleAnimation } from "../hooks/useRippleAnimation";
+
 const Home: NextPage = () => {
+  const buttonRef = useRef<null>(null);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  useRippleAnimation({
+    ref: buttonRef,
+    styles: {
+      isActive: `${s.effectContainerActive}`,
+      style: `${s.effectContainer}`,
+    },
+    config: { color: "#fff", size: 100, duration: 200 },
+  });
 
   const doToggleModal = () => setIsOpenModal((prev) => !prev);
 
@@ -26,8 +39,10 @@ const Home: NextPage = () => {
     <Layout>
       <div className="flex h-screen flex-col items-center justify-center">
         <button
+          ref={buttonRef}
+          data-ripple="#fff"
           onClick={doToggleModal}
-          className="h-40 w-40 rounded-full border border-black/40 bg-[#0089ff] text-3xl font-bold uppercase text-white shadow-2xl outline-none hover:bg-[#0089ff]/90"
+          className="ripple-bg-gray-300 relative h-40 w-40 overflow-hidden rounded-full border border-black/40 bg-[#0089ff] text-3xl font-bold uppercase text-white shadow-2xl outline-none hover:bg-[#0089ff]/90"
         >
           Clean
         </button>
@@ -44,7 +59,7 @@ const Home: NextPage = () => {
           <Icon
             onClick={doToggleModal}
             name="arrow-left"
-            className="absolute left-2 top-1/2 h-8 w-8 -translate-y-1/2 p-1 cursor-pointer hover:rounded-full hover:bg-white/10"
+            className="absolute left-2 top-1/2 h-8 w-8 -translate-y-1/2 cursor-pointer p-1 hover:rounded-full hover:bg-white/10"
           />
           <h1 className="text-center text-2xl ">Cleaning</h1>
         </div>

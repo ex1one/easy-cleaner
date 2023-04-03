@@ -7,7 +7,7 @@ import {
   Text,
   Animated,
   ActivityIndicator,
-  TouchableOpacity,
+  Pressable,
 } from "react-native";
 
 import Feather from "react-native-vector-icons/Feather";
@@ -22,8 +22,7 @@ export const Main = () => {
     if (isOpenModal) {
       timer.current = setTimeout(() => {
         setIsOpenModal(false);
-        // 1000 * 600
-      }, 1000 * 5);
+      }, 1000 * 600);
     }
 
     return () => {
@@ -34,15 +33,19 @@ export const Main = () => {
   return (
     <SafeAreaView className="flex-auto">
       <Animated.View className="h-screen flex-col items-center justify-center">
-        <TouchableOpacity
-          activeOpacity={0.9}
+        <Pressable
           onPress={doToggleModal}
-          className="h-40 w-40 flex-col items-center justify-center rounded-full border border-black/40 bg-[#0089ff] shadow-2xl outline-none hover:bg-[#0089ff]/90"
+          android_ripple={{
+            color: "#fff",
+          }}
+          className={
+            "h-40 w-40 flex-col items-center justify-center rounded-full border border-black/40 bg-[#0089ff] shadow-2xl outline-none transition duration-1000 ease-in-out hover:bg-[#0089ff]/90"
+          }
         >
           <Text className="text-3xl font-bold uppercase tracking-widest text-white">
             Clean
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       </Animated.View>
 
       <Modal
@@ -53,9 +56,23 @@ export const Main = () => {
         className="bg-white"
       >
         <View className="relative flex-row items-center justify-center bg-[#0089ff] py-4">
-          <TouchableOpacity className="flex-[1] pl-2" onPress={doToggleModal}>
-            <Feather name="arrow-left" size={30} style={{ color: "#fff" }} />
-          </TouchableOpacity>
+          <View className="relative flex-[1]">
+            <Pressable
+              android_ripple={{
+                color: "#fff",
+                borderless: true,
+              }}
+              className="w-14"
+              onPress={doToggleModal}
+            >
+              <Feather
+                name="arrow-left"
+                size={30}
+                style={{ color: "#fff", paddingLeft: 10 }}
+              />
+            </Pressable>
+          </View>
+
           <Text className="mx-auto flex-[2] text-2xl text-white">Cleaning</Text>
         </View>
 
