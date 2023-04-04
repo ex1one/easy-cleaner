@@ -8,6 +8,7 @@
     "build": "next build",
     "clean": "rm -rf .next .turbo node_modules",
     "start": "next start",
+    "start:prod3": "next start --port 3018",
     "lint": "next lint",
     "type-check": "tsc --noEmit"
   },
